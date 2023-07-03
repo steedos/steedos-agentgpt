@@ -100,6 +100,11 @@ interface ButtonDetail {
 }
 
 const providerButtonDetails: { [key: string]: ButtonDetail } = {
+  keycloak: {
+    id: "keycloak",
+    icon: <FaGoogle className="mr-2" />,
+    color: "bg-white hover:bg-gray-200 text-black",
+  },
   google: {
     id: "google",
     icon: <FaGoogle className="mr-2" />,

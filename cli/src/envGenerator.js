@@ -4,7 +4,7 @@ import chalk from "chalk";
 
 export const generateEnv = (envValues) => {
     let isDockerCompose = envValues.runOption === "docker-compose";
-    let dbPort = isDockerCompose ? 3307 : 3306;
+    let dbPort = isDockerCompose ? 3306 : 3306;
     let platformUrl = isDockerCompose
         ? "http://host.docker.internal:8000"
         : "http://localhost:8000";
