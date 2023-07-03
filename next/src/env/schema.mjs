@@ -31,6 +31,9 @@ export const serverSchema = z.object({
     GITHUB_CLIENT_SECRET: z.string().min(1).trim().optional(),
     DISCORD_CLIENT_ID: z.string().min(1).trim().optional(),
     DISCORD_CLIENT_SECRET: z.string().min(1).trim().optional(),
+    KEYCLOAK_CLIENT_ID: z.string().min(1).trim().optional(),
+    KEYCLOAK_CLIENT_SECRET: z.string().min(1).trim().optional(),
+    KEYCLOAK_CLIENT_ISSUER: z.string().min(1).trim().optional(),
 });
 
 /**
@@ -50,6 +53,10 @@ export const serverEnv = {
     GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
     DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
     DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
+
+    KEYCLOAK_CLIENT_ID: process.env.KEYCLOAK_CLIENT_ID,
+    KEYCLOAK_CLIENT_SECRET: process.env.KEYCLOAK_CLIENT_SECRET,
+    KEYCLOAK_CLIENT_ISSUER: process.env.KEYCLOAK_CLIENT_ISSUER
 };
 
 /**
