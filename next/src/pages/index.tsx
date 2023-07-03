@@ -15,7 +15,7 @@ import { languages } from "../utils/languages";
 import nextI18NextConfig from "../../next-i18next.config.js";
 import { SignInDialog } from "../components/dialog/SignInDialog";
 import { ToolsDialog } from "../components/dialog/ToolsDialog";
-import SidebarLayout from "../layout/sidebar";
+import DashboardLayout from "../layout/dashboard";
 import AppTitle from "../components/AppTitle";
 import FadeIn from "../components/motions/FadeIn";
 import Input from "../components/Input";
@@ -31,6 +31,8 @@ import { MessageService } from "../services/agent/message-service";
 import { DefaultAgentRunModel } from "../services/agent/agent-run-model";
 import { resetAllTaskSlices } from "../stores/taskStore";
 import { ChatWindowTitle } from "../components/console/ChatWindowTitle";
+import { AgentApi } from "../services/agent/agent-api";
+import { toApiModelSettings } from "../utils/interfaces";
 
 const Home: NextPage = () => {
   const { t } = useTranslation("indexPage");
@@ -90,11 +92,19 @@ const Home: NextPage = () => {
 
     const model = new DefaultAgentRunModel(name.trim(), goal.trim());
     const messageService = new MessageService(addMessage);
+    const agentApi = new AgentApi({
+      model_settings: toApiModelSettings(settings, session),
+      name: name.trim(),
+      goal: goal.trim(),
+      session,
+      agentUtils: agentUtils,
+    });
     const newAgent = new AutonomousAgent(
       model,
       messageService,
       () => setAgent(null),
       settings,
+      agentApi,
       session ?? undefined
     );
     setAgent(newAgent);
@@ -122,7 +132,7 @@ const Home: NextPage = () => {
     status === "authenticated" && agentLifecycle === "stopped" && messages.length && !hasSaved;
 
   return (
-    <SidebarLayout>
+    <DashboardLayout>
       <HelpDialog />
       <ToolsDialog show={showToolsDialog} close={() => setShowToolsDialog(false)} />
 
@@ -174,18 +184,6 @@ const Home: NextPage = () => {
             <ChatWindow
               messages={messages}
               title={<ChatWindowTitle model={settings.customModelName} />}
-              onSave={
-                shouldShowSave
-                  ? (format) => {
-                      setHasSaved(true);
-                      agentUtils.saveAgent({
-                        goal: goalInput.trim(),
-                        name: nameInput.trim(),
-                        tasks: messages,
-                      });
-                    }
-                  : undefined
-              }
               scrollToBottom
               setAgentRun={setAgentRun}
               visibleOnMobile={mobileVisibleWindow === "Chat"}
@@ -285,7 +283,7 @@ const Home: NextPage = () => {
           </FadeIn>
         </div>
       </div>
-    </SidebarLayout>
+    </DashboardLayout>
   );
 };
 

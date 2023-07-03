@@ -17,7 +17,6 @@ import { ImSpinner2 } from "react-icons/im";
 
 interface ChatWindowProps extends HeaderProps {
   children?: ReactNode;
-  fullscreen?: boolean;
   scrollToBottom?: boolean;
   setAgentRun?: (name: string, goal: string) => void;
   visibleOnMobile?: boolean;
@@ -27,8 +26,6 @@ const ChatWindow = ({
   messages,
   children,
   title,
-  onSave,
-  scrollToBottom,
   setAgentRun,
   visibleOnMobile,
 }: ChatWindowProps) => {
@@ -78,7 +75,7 @@ const ChatWindow = ({
         />
       </HideShow>
 
-      <MacWindowHeader title={title} messages={messages} onSave={onSave} />
+      <MacWindowHeader title={title} messages={messages} />
       <div
         className="mb-2 mr-2 flex-1 overflow-auto transition-all duration-500"
         ref={scrollRef}
