@@ -1,0 +1,17 @@
+ports:
+  - port: 3000
+    onOpen: ignore
+    visibility: public
+  - port: 8000
+    onOpen: ignore
+    visibility: public
+
+tasks:
+  - name: Docker
+    command: |
+      cp .env.example .env
+      echo "NEXT_PUBLIC_BACKEND_URL=$(gp url 8000)" >> .env
+      echo "NEXTAUTH_URL=$(gp url 3000)" >> .env
+      echo "REWORKD_PLATFORM_FRONTEND_URL=$(gp url 3000)" >> .env
+      docker-compose build
+      docker-compose up

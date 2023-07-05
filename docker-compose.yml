@@ -7,18 +7,15 @@ services:
       context: ./next
       dockerfile: Dockerfile
     env_file:
-      - next/.env
-    environment:
-      KEYCLOAK_CLIENT_ID: steedos-oidc-public
-      KEYCLOAK_CLIENT_SECRET: none
-      KEYCLOAK_CLIENT_ISSUER: https://id.steedos.cn/realms/master
+      - .env
     ports:
       - "3000:3000"
-    # volumes:
-    #   # - ./next/.env:/next/.env
-    #   - ./next/:/next/
-    #   - /next/node_modules
-    #   - /next/.next
+    command: ["npm", "run",  "dev"]
+    volumes:
+      - ./next/.env:/next/.env
+      - ./next/:/next/
+      - /next/node_modules
+      - /next/.next
 
   platform:
     container_name: platform
@@ -31,7 +28,7 @@ services:
     volumes:
       - ./platform:/app/src/
     env_file:
-      - next/.env
+      - .env
     environment:
       REWORKD_PLATFORM_HOST: 0.0.0.0
       REWORKD_PLATFORM_DB_HOST: db

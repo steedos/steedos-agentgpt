@@ -9,7 +9,6 @@ dos2unix wait-for-db.sh
 # dos2unix .env.temp
 # cat .env.temp > .env
 # rm .env.temp
-rm .env
 
 # source .env
 
