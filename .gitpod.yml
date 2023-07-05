@@ -9,9 +9,9 @@ ports:
 tasks:
   - name: Docker
     command: |
-      cp .env.example .env
-      echo "NEXT_PUBLIC_BACKEND_URL=$(gp url 8000)" >> .env
-      echo "NEXTAUTH_URL=$(gp url 3000)" >> .env
-      echo "REWORKD_PLATFORM_FRONTEND_URL=$(gp url 3000)" >> .env
+      cp .env.example next/.env
+      echo "NEXT_PUBLIC_BACKEND_URL=$(gp url 8000)" >> next/.env
+      echo "NEXTAUTH_URL=$(gp url 3000)" >> next/.env
+      echo "REWORKD_PLATFORM_FRONTEND_URL=$(gp url 3000)" >> next/.env
       docker-compose build
       docker-compose up
