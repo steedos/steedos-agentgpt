@@ -30,7 +30,6 @@ RUN apk add --no-cache dos2unix netcat-openbsd \
     && dos2unix /entrypoint.sh
 
 RUN npx prisma generate
-RUN npm run build
 
 # Expose the port the app will run on
 EXPOSE 3000
